@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Police National FC Lineup</title>
+    <link rel="stylesheet" href="style.css?v=20261116201542" />
+  </head>
+  <body>
+    <div class="app">
+      <main class="broadcast" id="broadcast">
+        <header class="top-bar">
+          <div class="team">
+            <div class="flag" id="team-flag">
+              <img src="assets/logos/logo.jpeg" alt="Police National FC logo" />
+            </div>
+            <div>
+              <h1 id="team-name">POLICE NATIONAL FC</h1>
+              <p id="team-subtitle">SERVICE WITH INTEGRITY</p>
+            </div>
+          </div>
+
+          <div class="formation">
+            <span>FORMATION</span>
+            <h2 id="formation-display">4 - 3 - 3</h2>
+          </div>
+        </header>
+
+        <section class="pitch-area">
+          <div class="pitch" id="pitch">
+            <div class="halfway-line"></div>
+            <div class="center-circle"></div>
+            <div class="center-spot"></div>
+
+            <div class="penalty-box top-box"></div>
+            <div class="goal-box top-goal"></div>
+
+            <div class="penalty-box bottom-box"></div>
+            <div class="goal-box bottom-goal"></div>
+
+            <div class="corner top-left"></div>
+            <div class="corner top-right"></div>
+            <div class="corner bottom-left"></div>
+            <div class="corner bottom-right"></div>
+
+            <div class="pitch-label">STARTING XI</div>
+
+            <div id="players-container"></div>
+          </div>
+        </section>
+
+        <section class="bench" id="bench">
+          <span class="bench-title">SUBSTITUTES</span>
+          <div id="bench-list" class="bench-list"></div>
+        </section>
+
+        <footer class="bottom-bar">
+          <span>TEAM LINEUP</span>
+          <span id="footer-text">2026 • FOOTBALL PRESENTATION</span>
+        </footer>
+      </main>
+
+      <!-- Lineup editor -->
+      <section class="editor">
+        <h2>Lineup Editor</h2>
+
+        <div class="editor-grid">
+          <label>
+            Team name
+            <input type="text" id="team-name-input" maxlength="24" />
+          </label>
+
+          <label>
+            Subtitle
+            <input type="text" id="team-subtitle-input" maxlength="30" />
+          </label>
+
+          <label>
+            Footer text
+            <input type="text" id="footer-input" maxlength="40" />
+          </label>
+
+          <label>
+            Formation
+            <select id="formation-select"></select>
+          </label>
+
+          <label>
+            Text badge (used when there is no logo)
+            <input type="text" id="flag-input" maxlength="8" />
+          </label>
+
+          <div class="field">
+            Team logo
+            <div class="file-row">
+              <label class="file-button">
+                Upload
+                <input type="file" id="flag-image-input" accept="image/*" />
+              </label>
+              <button type="button" id="flag-image-remove" class="small-button">
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <h3>Players</h3>
+        <div id="player-inputs" class="player-inputs"></div>
+
+        <h3>Substitutes</h3>
+        <div id="sub-inputs" class="player-inputs sub-inputs"></div>
+        <button type="button" id="add-sub-btn" class="add-sub">
+          + Add substitute
+        </button>
+
+        <div class="editor-actions">
+          <button type="button" id="reset-positions-btn">Reset positions</button>
+          <button type="button" id="reset-all-btn">Reset everything</button>
+          <button type="button" id="download-btn" class="primary">
+            Download PNG
+          </button>
+        </div>
+
+        <p class="hint">
+          Tip: drag players on the pitch to fine-tune their positions. Use
+          "Swap…" on a substitute to bring them on for a starter. Your lineup
+          is saved automatically in this browser.
+        </p>
+      </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="script.js?v=20261116201542"></script>
+  </body>
+</html>

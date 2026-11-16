@@ -1,0 +1,683 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  padding: 25px;
+  background: #10131c;
+  font-family: Arial, sans-serif;
+}
+
+/* Page layout: graphic on top, editor underneath */
+.app {
+  width: 100%;
+  min-width: 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Main broadcast frame */
+.broadcast {
+  width: 100%;
+  max-width: 1100px;
+  padding: 12px;
+  background: linear-gradient(
+    135deg,
+    #00e5ff,
+    #1769ff,
+    #a900ff,
+    #ff1744,
+    #ffb300
+  );
+  border-radius: 15px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+}
+
+/* Top heading */
+.top-bar {
+  min-height: 100px;
+  padding: 18px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #101827;
+  color: white;
+}
+
+.team {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.flag {
+  font-size: 42px;
+  line-height: 1;
+}
+
+.flag img {
+  display: block;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.team h1 {
+  font-size: 28px;
+  letter-spacing: 3px;
+}
+
+.team p {
+  margin-top: 5px;
+  color: #00e5ff;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.formation {
+  text-align: right;
+}
+
+.formation span {
+  color: #aab5c8;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.formation h2 {
+  margin-top: 5px;
+  color: #00e5ff;
+  font-size: 28px;
+}
+
+/* Pitch background */
+.pitch-area {
+  padding: 12px;
+  background: #0b1420;
+}
+
+.pitch {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  background: repeating-linear-gradient(
+    90deg,
+    #167d39 0,
+    #167d39 10%,
+    #1b8a40 10%,
+    #1b8a40 20%
+  );
+}
+
+/* Pitch markings */
+.halfway-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: white;
+  transform: translateY(-50%);
+}
+
+.center-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18%;
+  aspect-ratio: 1;
+  border: 2px solid white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.center-spot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+  transform: translate(-50%, -50%);
+}
+
+.penalty-box {
+  position: absolute;
+  left: 50%;
+  width: 42%;
+  height: 17%;
+  border: 2px solid white;
+  transform: translateX(-50%);
+}
+
+.top-box {
+  top: 0;
+}
+
+.bottom-box {
+  bottom: 0;
+}
+
+.goal-box {
+  position: absolute;
+  left: 50%;
+  width: 18%;
+  height: 7%;
+  border: 2px solid white;
+  transform: translateX(-50%);
+}
+
+.top-goal {
+  top: 0;
+}
+
+.bottom-goal {
+  bottom: 0;
+}
+
+/* Corner markings */
+.corner {
+  position: absolute;
+  width: 3%;
+  aspect-ratio: 1;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.top-left {
+  top: -2%;
+  left: -2%;
+}
+
+.top-right {
+  top: -2%;
+  right: -2%;
+}
+
+.bottom-left {
+  bottom: -2%;
+  left: -2%;
+}
+
+.bottom-right {
+  bottom: -2%;
+  right: -2%;
+}
+
+.pitch-label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 8px 18px;
+  color: white;
+  background: rgba(0, 0, 0, 0.45);
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+/* Bottom heading */
+.bottom-bar {
+  min-height: 45px;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  background: #101827;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 8px;
+  }
+
+  .top-bar {
+    padding: 14px 15px;
+  }
+
+  .team h1 {
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+
+  .team {
+    gap: 10px;
+  }
+
+  .team p {
+    font-size: 9px;
+  }
+
+  .flag {
+    font-size: 30px;
+  }
+
+  .formation h2 {
+    font-size: 20px;
+  }
+
+  .bottom-bar {
+    font-size: 8px;
+  }
+}
+
+/* Player positioning */
+#players-container {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}
+
+.player {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90px;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+}
+
+.player-photo {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid white;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #172554, #06b6d4);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.player-number {
+  margin-top: 3px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: #07111f;
+  color: #00e5ff;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.player-name {
+  margin-top: 3px;
+  padding: 3px 5px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.75);
+  font-size: 10px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .player {
+    width: 60px;
+  }
+
+  .player-photo {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+    border-width: 2px;
+  }
+
+  .player-number {
+    font-size: 9px;
+  }
+
+  .player-name {
+    font-size: 7px;
+    padding: 2px;
+  }
+}
+
+.player-photo {
+  overflow: hidden;
+  position: relative;
+}
+
+.player-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Dragging players */
+.player {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.player.dragging {
+  cursor: grabbing;
+  z-index: 10;
+}
+
+.player.dragging .player-photo {
+  border-color: #00e5ff;
+}
+
+/* ---------- Editor panel ---------- */
+.editor {
+  padding: 25px;
+  border-radius: 15px;
+  background: #101827;
+  color: white;
+}
+
+.editor h2 {
+  margin-bottom: 18px;
+  color: #00e5ff;
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.editor h3 {
+  margin: 25px 0 12px;
+  color: #aab5c8;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.editor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 15px;
+}
+
+.editor-grid label,
+.editor-grid .field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #aab5c8;
+  font-size: 12px;
+}
+
+.editor input[type="text"],
+.editor input[type="number"],
+.editor select {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid #2a3a55;
+  border-radius: 6px;
+  background: #0b1420;
+  color: white;
+  font-size: 14px;
+}
+
+.editor input:focus,
+.editor select:focus {
+  outline: none;
+  border-color: #00e5ff;
+}
+
+.file-row {
+  display: flex;
+  gap: 8px;
+}
+
+/* Hide the real file input and show a styled button instead */
+.file-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border: 1px solid #2a3a55;
+  border-radius: 6px;
+  background: #172554;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.editor-grid .file-button {
+  flex-direction: row;
+  color: white;
+}
+
+.file-button:hover {
+  border-color: #00e5ff;
+}
+
+.file-button input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.player-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: 8px 20px;
+}
+
+.player-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.player-row .role {
+  width: 38px;
+  flex-shrink: 0;
+  color: #00e5ff;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.editor .player-row .number-input {
+  width: 64px;
+  flex-shrink: 0;
+}
+
+.editor .player-row input[type="text"] {
+  flex: 1;
+  min-width: 0;
+}
+
+.editor button {
+  padding: 10px 16px;
+  border: 1px solid #2a3a55;
+  border-radius: 6px;
+  background: #0b1420;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.editor button:hover {
+  border-color: #00e5ff;
+}
+
+.editor button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.editor .small-button {
+  padding: 8px 10px;
+  font-size: 12px;
+}
+
+.editor button.primary {
+  border: none;
+  background: linear-gradient(135deg, #00e5ff, #1769ff);
+  font-weight: bold;
+}
+
+.editor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.editor-actions .primary {
+  margin-left: auto;
+}
+
+.hint {
+  margin-top: 15px;
+  color: #6b7a93;
+  font-size: 12px;
+}
+
+@media (max-width: 600px) {
+  /* A taller pitch on phones so players don't overlap */
+  .pitch {
+    aspect-ratio: 4 / 5;
+  }
+
+  .flag img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .editor {
+    padding: 18px;
+  }
+
+  .pitch-label {
+    top: 6px;
+    left: 6px;
+    padding: 5px 10px;
+    font-size: 9px;
+  }
+
+  .editor-actions .primary {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* ---------- Substitutes bench (in the graphic) ---------- */
+.bench {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 12px 20px;
+  border-top: 1px solid #1d2a40;
+  background: #0b1420;
+  color: white;
+}
+
+.bench[hidden] {
+  display: none;
+}
+
+.bench-title {
+  color: #00e5ff;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+.bench-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+}
+
+.sub {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.sub .player-photo {
+  width: 34px;
+  height: 34px;
+  border-width: 2px;
+  font-size: 13px;
+}
+
+.sub-number {
+  color: #00e5ff;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.sub-name {
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+/* ---------- Substitutes (in the editor) ---------- */
+.sub-inputs {
+  grid-template-columns: repeat(auto-fit, minmax(min(480px, 100%), 1fr));
+}
+
+.editor .swap-select {
+  width: 150px;
+  flex-shrink: 0;
+  padding: 8px;
+  font-size: 12px;
+}
+
+.editor .add-sub {
+  margin-top: 12px;
+  border-style: dashed;
+}
+
+@media (max-width: 600px) {
+  .bench {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .bench-list {
+    gap: 8px 12px;
+  }
+
+  .sub .player-photo {
+    width: 26px;
+    height: 26px;
+    font-size: 10px;
+  }
+
+  .sub-name {
+    font-size: 9px;
+  }
+
+  /* Let the swap / remove controls drop to a second line */
+  .sub-row {
+    flex-wrap: wrap;
+  }
+
+  .editor .player-row.sub-row input[type="text"] {
+    flex: 1 1 120px;
+  }
+
+  .editor .swap-select {
+    flex: 1;
+    margin-left: 46px;
+  }
+}
